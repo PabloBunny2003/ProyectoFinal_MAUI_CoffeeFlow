@@ -1,11 +1,30 @@
 {
   "version": 4,
   "targets": {
-    "net10.0": {}
+    "net10.0": {
+      "ProyectoFinal.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/ProyectoFinal.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProyectoFinal.Core.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "ProyectoFinal.Core/1.0.0": {
+      "type": "project",
+      "path": "../ProyectoFinal.Core/ProyectoFinal.Core.csproj",
+      "msbuildProject": "../ProyectoFinal.Core/ProyectoFinal.Core.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net10.0": []
+    "net10.0": [
+      "ProyectoFinal.Core >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Drizzy\\.nuget\\packages\\": {},
@@ -40,7 +59,11 @@
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\ProyectoFinal_MAUI_CoffeeFlow\\src\\ProyectoFinal.Core\\ProyectoFinal.Core.csproj": {
+              "projectPath": "C:\\ProyectoFinal_MAUI_CoffeeFlow\\src\\ProyectoFinal.Core\\ProyectoFinal.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
