@@ -5,6 +5,8 @@ using ProyectoFinal.Core.Abstractions;
 using ProyectoFinal.Core.Entities;
 using ProyectoFinal.Core.Interfaces;
 using ProyectoFinal.Infrastructure.Repositories;
+using System.Linq;
+using ProyectoFinal.Core.Generics;
 
 Console.WriteLine("====================================");
 Console.WriteLine("       COFFEFLOW - PRUEBAS POO       ");
@@ -97,6 +99,73 @@ ComprobarExcepcion<ArgumentException>(
 ComprobarExcepcion<InvalidOperationException>(
     () => vendible.CalcularImporte(100),
     "Stock insuficiente");
+
+
+// 8. Demostración de clases genéricas
+Console.WriteLine("\n--- CLASES GENERICAS ---");
+
+RepositorioEnMemoria<Producto> repositorioGenerico = new();
+
+foreach (Producto producto in productos)
+{
+    repositorioGenerico.Agregar(producto);
+}
+
+Console.WriteLine(
+    $"Total de productos: {repositorioGenerico.Contar()}");
+
+// Repositorio especializado en alimentos
+RepositorioEnMemoria<Alimento> repositorioAlimentos = new();
+
+foreach (Alimento alimento in productos.OfType<Alimento>())
+{
+    repositorioAlimentos.Agregar(alimento);
+}
+
+Console.WriteLine(
+    $"Total de alimentos: {repositorioAlimentos.Contar()}");
+
+// 9. Demostración de métodos genéricos
+Console.WriteLine("\n--- METODOS GENERICOS ---");
+
+var bebidasDisponibles =
+    ConsultasProductos.ObtenerDisponibles<BebidaCaliente>(
+        productos.OfType<BebidaCaliente>());
+
+var alimentosDisponibles =
+    ConsultasProductos.ObtenerDisponibles<Alimento>(
+        repositorioAlimentos.ObtenerTodos());
+
+Console.WriteLine(
+    $"Bebidas calientes disponibles: {bebidasDisponibles.Count}");
+
+Console.WriteLine(
+    $"Alimentos disponibles: {alimentosDisponibles.Count}");
+
+decimal valorInventario =
+    ConsultasProductos.CalcularValorInventario<Producto>(
+        repositorioGenerico.ObtenerTodos());
+
+Console.WriteLine(
+    $"Valor total del inventario: ${valorInventario:F2}");
+
+// Verificaciones
+Comprobar(
+    repositorioGenerico.Contar() == 3,
+    "Repositorio generico de productos");
+
+Comprobar(
+    repositorioAlimentos.Contar() == 1,
+    "Repositorio generico de alimentos");
+
+Comprobar(
+    bebidasDisponibles.Count == 1 &&
+    alimentosDisponibles.Count == 1,
+    "Metodo generico utilizado con dos tipos");
+
+Comprobar(
+    valorInventario == 2965m,
+    "Calculo del valor del inventario");
 
 Console.WriteLine("\n====================================");
 Console.WriteLine("   PRUEBAS FINALIZADAS CORRECTAMENTE");

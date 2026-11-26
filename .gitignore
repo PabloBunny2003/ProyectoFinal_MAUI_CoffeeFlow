@@ -1,0 +1,72 @@
+
+# ==========================================
+# CoffeeFlow - Git Ignore
+# ==========================================
+
+# Archivos de compilación .NET
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+artifacts/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Resultados de pruebas
+TestResults/
+coverage/
+*.trx
+*.coverage
+*.coveragexml
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+*.cache
+
+# Publicación y distribución
+publish/
+*.apk
+*.aab
+*.ipa
+*.msix
+*.msixbundle
+
+# Certificados y credenciales
+*.pfx
+*.p12
+*.keystore
+*.jks
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+
+# Archivos locales de SQL Server
+*.mdf
+*.ldf
+*.bak
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
