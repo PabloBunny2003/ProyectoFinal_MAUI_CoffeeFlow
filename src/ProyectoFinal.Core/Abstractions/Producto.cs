@@ -1,9 +1,11 @@
 
+
 using System;
+using ProyectoFinal.Core.Interfaces;
 
 namespace ProyectoFinal.Core.Abstractions
 {
-    public abstract class Producto : EntidadBase
+    public abstract class Producto : EntidadBase, IVendible
     {
         private string _nombre = string.Empty;
         private decimal _precio;
@@ -75,5 +77,26 @@ namespace ProyectoFinal.Core.Abstractions
         {
             return Stock > 0;
         }
+
+        public decimal CalcularImporte(int cantidad)
+        {
+            if (cantidad <= 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(cantidad),
+                    "La cantidad debe ser mayor que cero."
+                );
+            }
+
+            if (cantidad > Stock)
+            {
+                throw new InvalidOperationException(
+                    "No hay suficiente stock disponible."
+                );
+            }
+
+            return Precio * cantidad;
+        }
     }
 }
+    
