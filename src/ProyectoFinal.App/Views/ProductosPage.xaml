@@ -1,0 +1,159 @@
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ProyectoFinal.App.ViewModels"
+    xmlns:models="clr-namespace:ProyectoFinal.Core.Abstractions;assembly=ProyectoFinal.Core"
+    x:Class="ProyectoFinal.App.Views.ProductosPage"
+    x:DataType="vm:ProductosViewModel"
+    Title="{Binding Title}"
+    Style="{StaticResource CoffeePageStyle}">
+
+    <Grid Padding="24"
+          RowDefinitions="Auto,Auto,Auto,*"
+          RowSpacing="20">
+
+        <!-- Encabezado -->
+
+        <VerticalStackLayout Grid.Row="0"
+                             Spacing="6">
+
+            <Label Text="Productos"
+                   Style="{StaticResource CoffeeTitleStyle}" />
+
+            <Label Text="Consulta el catálogo de tu cafetería"
+                   Style="{StaticResource CoffeeSubtitleStyle}" />
+
+        </VerticalStackLayout>
+
+        <!-- Buscador y filtros -->
+
+        <Border Grid.Row="1"
+                Style="{StaticResource CoffeeCardStyle}">
+
+            <VerticalStackLayout Spacing="12">
+
+                <Label Text="Buscar producto"
+                       Style="{StaticResource CoffeeBodyStyle}" />
+
+                <Entry Placeholder="Escribe el nombre del producto..."
+                       Text="{Binding Busqueda, Mode=TwoWay}"
+                       Style="{StaticResource CoffeeEntryStyle}" />
+
+                <Label Text="Categoría"
+                       Style="{StaticResource CoffeeBodyStyle}" />
+
+                <Picker Title="Seleccionar categoría"
+                        ItemsSource="{Binding Categorias}"
+                        SelectedItem="{Binding CategoriaSeleccionada,
+                                               Mode=TwoWay}"
+                        TextColor="{StaticResource CoffeeEspresso}"
+                        BackgroundColor="{StaticResource CoffeeWhite}" />
+
+            </VerticalStackLayout>
+
+        </Border>
+
+        <!-- Número de resultados -->
+
+        <Label Grid.Row="2"
+               Text="{Binding TotalResultados,
+                      StringFormat='{0} productos encontrados'}"
+               Style="{StaticResource CoffeeSubtitleStyle}" />
+
+        <!-- Catálogo de productos -->
+
+        <CollectionView Grid.Row="3"
+                        ItemsSource="{Binding Productos}"
+                        SelectionMode="None">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.EmptyView>
+
+                <VerticalStackLayout
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Spacing="12"
+                    Padding="20">
+
+                    <Label Text="No se encontraron productos"
+                           HorizontalTextAlignment="Center"
+                           Style="{StaticResource CoffeeSectionStyle}" />
+
+                    <Label Text="Intenta cambiar los filtros de búsqueda."
+                           HorizontalTextAlignment="Center"
+                           Style="{StaticResource CoffeeSubtitleStyle}" />
+
+                </VerticalStackLayout>
+
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="models:Producto">
+
+                    <Border Style="{StaticResource CoffeeCardStyle}">
+
+                        <Grid ColumnDefinitions="*,Auto"
+                              ColumnSpacing="20">
+
+                            <!-- Información del producto -->
+
+                            <VerticalStackLayout Spacing="8">
+
+                                <Label Text="{Binding Nombre}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource CoffeeEspresso}" />
+
+                                <Label Text="{Binding Id,
+                                       StringFormat='Código: {0:D3}'}"
+                                       Style="{StaticResource CoffeeBodyStyle}" />
+
+                                <Label Text="{Binding Stock,
+                                       StringFormat='{0} unidades en existencia'}"
+                                       FontSize="14"
+                                       TextColor="{StaticResource CoffeeTextSecondary}" />
+
+                            </VerticalStackLayout>
+
+                            <!-- Precio -->
+
+                            <VerticalStackLayout Grid.Column="1"
+                                                 VerticalOptions="Center"
+                                                 Spacing="5">
+
+                                <Label Text="Precio"
+                                       HorizontalTextAlignment="End"
+                                       Style="{StaticResource CoffeeBodyStyle}" />
+
+                                <Label Text="{Binding Precio,
+                                       StringFormat='${0:N2}'}"
+                                       FontSize="24"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource CoffeeBrown}" />
+
+                                <Label Text="MXN"
+                                       HorizontalTextAlignment="End"
+                                       TextColor="{StaticResource CoffeeTextSecondary}"
+                                       FontSize="12" />
+
+                            </VerticalStackLayout>
+
+                        </Grid>
+
+                    </Border>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

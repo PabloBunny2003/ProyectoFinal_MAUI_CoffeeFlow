@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:ProyectoFinal.App.ViewModels"
+    xmlns:models="clr-namespace:ProyectoFinal.Core.Abstractions;assembly=ProyectoFinal.Core"
+    x:Class="ProyectoFinal.App.Views.DashboardPage"
+    x:DataType="vm:DashboardViewModel"
+    Title="{Binding Title}"
+    Style="{StaticResource CoffeePageStyle}">
+
+    <Grid Padding="24"
+          RowDefinitions="Auto,Auto,Auto,*,Auto"
+          RowSpacing="20">
+
+        <!-- Encabezado -->
+
+        <VerticalStackLayout Grid.Row="0"
+                             Spacing="6">
+
+            <Label Text="CoffeeFlow"
+                   Style="{StaticResource CoffeeTitleStyle}" />
+
+            <Label Text="Resumen general de tu cafetería"
+                   Style="{StaticResource CoffeeSubtitleStyle}" />
+
+        </VerticalStackLayout>
+
+        <!-- Indicadores -->
+
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*,*"
+              RowDefinitions="Auto,Auto"
+              ColumnSpacing="16"
+              RowSpacing="16">
+
+            <!-- Total de productos -->
+
+            <Border Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource CoffeeCardStyle}">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="Productos registrados"
+                           Style="{StaticResource CoffeeBodyStyle}" />
+
+                    <Label Text="{Binding TotalProductos}"
+                           Style="{StaticResource CoffeeMetricStyle}" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- Existencias -->
+
+            <Border Grid.Row="0"
+                    Grid.Column="1"
+                    Style="{StaticResource CoffeeCardStyle}">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="Unidades en existencia"
+                           Style="{StaticResource CoffeeBodyStyle}" />
+
+                    <Label Text="{Binding TotalExistencias}"
+                           Style="{StaticResource CoffeeMetricStyle}" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- Valor del inventario -->
+
+            <Border Grid.Row="1"
+                    Grid.Column="0"
+                    Style="{StaticResource CoffeeCardStyle}">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="Valor del inventario"
+                           Style="{StaticResource CoffeeBodyStyle}" />
+
+                    <Label Text="{Binding ValorInventario,
+                                  StringFormat='${0:N2} MXN'}"
+                           Style="{StaticResource CoffeeMetricStyle}" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- Productos disponibles -->
+
+            <Border Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource CoffeeCardStyle}">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="Productos disponibles"
+                           Style="{StaticResource CoffeeBodyStyle}" />
+
+                    <Label Text="{Binding ProductosDisponibles}"
+                           Style="{StaticResource CoffeeMetricStyle}"
+                           TextColor="{StaticResource CoffeeSuccess}" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+        </Grid>
+
+        <!-- Encabezado del catálogo -->
+
+        <Label Grid.Row="2"
+               Text="Productos registrados"
+               Style="{StaticResource CoffeeSectionStyle}" />
+
+        <!-- Colección de productos -->
+
+        <CollectionView Grid.Row="3"
+                        ItemsSource="{Binding Productos}"
+                        SelectionMode="None">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.EmptyView>
+                <Label Text="No existen productos registrados."
+                       Style="{StaticResource CoffeeSubtitleStyle}" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate x:DataType="models:Producto">
+
+                    <Border Style="{StaticResource CoffeeCardStyle}">
+
+                        <Grid ColumnDefinitions="*,Auto"
+                              ColumnSpacing="12">
+
+                            <VerticalStackLayout Spacing="6">
+
+                                <Label Text="{Binding Nombre}"
+                                       FontSize="17"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource CoffeeEspresso}" />
+
+                                <Label Text="{Binding Stock,
+                                      StringFormat='{0} unidades en existencia'}"
+                                       TextColor="{StaticResource CoffeeTextSecondary}" />
+
+                            </VerticalStackLayout>
+
+                            <Label Grid.Column="1"
+                                   Text="{Binding Precio,
+                                          StringFormat='${0:N2}'}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"
+                                   TextColor="{StaticResource CoffeeBrown}" />
+
+                        </Grid>
+
+                    </Border>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!-- Botón de actualización -->
+
+        <Button Grid.Row="4"
+                Text="Actualizar información"
+                Command="{Binding ActualizarCommand}"
+                Style="{StaticResource CoffeePrimaryButtonStyle}" />
+
+    </Grid>
+
+</ContentPage>
+

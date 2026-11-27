@@ -1,14 +1,41 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+
 <Shell
     x:Class="ProyectoFinal.App.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ProyectoFinal.App"
-    Title="ProyectoFinal.App">
+    xmlns:views="clr-namespace:ProyectoFinal.App.Views"
+    FlyoutBehavior="Disabled"
+    Title="CoffeeFlow"
+    Shell.BackgroundColor="{StaticResource CoffeeEspresso}"
+    Shell.ForegroundColor="{StaticResource CoffeeWhite}"
+    Shell.TitleColor="{StaticResource CoffeeWhite}"
+    Shell.TabBarBackgroundColor="{StaticResource CoffeeEspresso}"
+    Shell.TabBarTitleColor="{StaticResource CoffeeWhite}"
+    Shell.TabBarUnselectedColor="{StaticResource CoffeeCaramel}">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+
+        <Tab Title="Dashboard"
+             Route="dashboard">
+
+            <ShellContent
+                Title="Dashboard"
+                Route="DashboardPage"
+                ContentTemplate="{DataTemplate views:DashboardPage}" />
+
+        </Tab>
+
+        <Tab Title="Productos"
+             Route="productos">
+
+            <ShellContent
+                Title="Productos"
+                Route="ProductosPage"
+                ContentTemplate="{DataTemplate views:ProductosPage}" />
+
+        </Tab>
+
+    </TabBar>
 
 </Shell>
+
